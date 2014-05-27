@@ -79,7 +79,7 @@ end
 service 'glance-registry' do
   service_name platform_options['image_registry_service']
   supports status: true, restart: true
-
+  provider platform_options['service_provider']
   action :enable
 end
 

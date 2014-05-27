@@ -96,12 +96,7 @@ default['openstack']['image']['data_api'] = 'glance.db.sqlalchemy.api'
 
 # Default Image Locations
 default['openstack']['image']['upload_images'] = ['cirros']
-default['openstack']['image']['upload_image']['precise'] = 'http://cloud-images.ubuntu.com/precise/current/precise-server-cloudimg-amd64-disk1.img'
-default['openstack']['image']['upload_image']['oneiric'] = 'http://cloud-images.ubuntu.com/oneiric/current/oneiric-server-cloudimg-amd64-disk1.img'
-default['openstack']['image']['upload_image']['natty'] = 'http://cloud-images.ubuntu.com/natty/current/natty-server-cloudimg-amd64-disk1.img'
 default['openstack']['image']['upload_image']['cirros'] = 'http://download.cirros-cloud.net/0.3.2/cirros-0.3.2-x86_64-disk.img'
-# more images available at https://github.com/rackerjoe/oz-image-build
-default['openstack']['image']['upload_image']['centos'] = 'http://c250663.r63.cf1.rackcdn.com/centos60_x86_64.qcow2'
 
 # logging attribute
 default['openstack']['image']['syslog']['use'] = false
@@ -138,7 +133,8 @@ when 'fedora', 'rhel' # :pragma-foodcritic: ~FC024 - won't fix this
     'image_api_service' => 'openstack-glance-api',
     'image_registry_service' => 'openstack-glance-registry',
     'image_api_process_name' => 'glance-api',
-    'package_overrides' => ''
+    'package_overrides' => '',
+    'service_provider' => Chef::Provider::Service::Redhat
   }
 when 'suse'
   default['openstack']['image']['user'] = 'openstack-glance'
@@ -153,7 +149,8 @@ when 'suse'
     'image_api_service' => 'openstack-glance-api',
     'image_registry_service' => 'openstack-glance-registry',
     'image_api_process_name' => 'glance-api',
-    'package_overrides' => ''
+    'package_overrides' => '',
+    'service_provider' => Chef::Provider::Service::Redhat
   }
 when 'debian'
   default['openstack']['image']['user'] = 'glance'
@@ -168,6 +165,10 @@ when 'debian'
     'image_api_service' => 'glance-api',
     'image_registry_service' => 'glance-registry',
     'image_registry_process_name' => 'glance-registry',
-    'package_overrides' => "-o Dpkg::Options::='--force-confold' -o Dpkg::Options::='--force-confdef'"
+    'package_overrides' => "-o Dpkg::Options::='--force-confold' -o Dpkg::Options::='--force-confdef'",
+    'service_provider' => Chef::Provider::Service::Debian
   }
+  if node['platform'] == 'ubuntu' && node['platform_version'] == '14.04'
+         default['openstack']['image']['platform']['service_provider'] = Chef::Provider::Service::Upstart
+  end
 end

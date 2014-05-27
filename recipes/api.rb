@@ -58,7 +58,6 @@ if node['openstack']['image']['api']['default_store'] == 'swift'
       options platform_options['package_overrides']
     end
   end
-
 elsif node['openstack']['image']['api']['default_store'] == 'rbd'
   rbd_user = node['openstack']['image']['api']['rbd']['rbd_store_user']
   rbd_key = get_password 'service', node['openstack']['image']['api']['rbd']['key_name']
@@ -88,7 +87,7 @@ end
 service 'glance-api' do
   service_name platform_options['image_api_service']
   supports status: true, restart: true
-
+  provider platform_options['service_provider']
   action :enable
 end
 
