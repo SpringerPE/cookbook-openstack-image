@@ -38,7 +38,7 @@ db_user = node['openstack']['db']['image']['username']
 db_pass = get_password 'db', 'glance'
 sql_connection = db_uri('image', db_user, db_pass)
 
-identity_endpoint = endpoint 'identity-api'
+identity_endpoint = endpoint 'identity-api-internal'
 identity_admin_endpoint = endpoint 'identity-admin'
 registry_bind = endpoint 'image-registry-bind'
 service_pass = get_password 'service', 'openstack-image'

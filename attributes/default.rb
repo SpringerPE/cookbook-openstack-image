@@ -133,8 +133,7 @@ when 'fedora', 'rhel' # :pragma-foodcritic: ~FC024 - won't fix this
     'image_api_service' => 'openstack-glance-api',
     'image_registry_service' => 'openstack-glance-registry',
     'image_api_process_name' => 'glance-api',
-    'package_overrides' => '',
-    'service_provider' => Chef::Provider::Service::Redhat
+    'package_overrides' => ''
   }
 when 'suse'
   default['openstack']['image']['user'] = 'openstack-glance'
@@ -149,8 +148,7 @@ when 'suse'
     'image_api_service' => 'openstack-glance-api',
     'image_registry_service' => 'openstack-glance-registry',
     'image_api_process_name' => 'glance-api',
-    'package_overrides' => '',
-    'service_provider' => Chef::Provider::Service::Redhat
+    'package_overrides' => ''
   }
 when 'debian'
   default['openstack']['image']['user'] = 'glance'
@@ -165,10 +163,9 @@ when 'debian'
     'image_api_service' => 'glance-api',
     'image_registry_service' => 'glance-registry',
     'image_registry_process_name' => 'glance-registry',
-    'package_overrides' => "-o Dpkg::Options::='--force-confold' -o Dpkg::Options::='--force-confdef'",
-    'service_provider' => Chef::Provider::Service::Debian
+    'package_overrides' => "-o Dpkg::Options::='--force-confold' -o Dpkg::Options::='--force-confdef'"
   }
-  if node['platform'] == 'ubuntu' && node['platform_version'] == '14.04'
-         default['openstack']['image']['platform']['service_provider'] = Chef::Provider::Service::Upstart
-  end
 end
+
+default['openstack']['image']['platform']['service_provider'] = node['openstack']['common']['platform']['service_provider']
+

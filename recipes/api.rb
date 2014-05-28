@@ -105,7 +105,7 @@ end
 
 glance = node['openstack']['image']
 
-identity_endpoint = endpoint 'identity-api'
+identity_endpoint = endpoint 'identity-api-internal'
 identity_admin_endpoint = endpoint 'identity-admin'
 service_pass = get_password 'service', 'openstack-image'
 
@@ -115,7 +115,7 @@ db_user = node['openstack']['db']['image']['username']
 db_pass = get_password 'db', 'glance'
 sql_connection = db_uri('image', db_user, db_pass)
 
-mq_service_type = node['openstack']['mq']['image']['service_type']
+mq_service_type = node['openstack']['mq']['service_type']
 
 if mq_service_type == 'rabbitmq'
   mq_password = get_password 'user', node['openstack']['mq']['image']['rabbit']['userid']
