@@ -123,7 +123,7 @@ elsif mq_service_type == 'qpid'
   mq_password = get_password 'user', node['openstack']['mq']['image']['qpid']['username']
 end
 
-registry_endpoint = endpoint 'image-registry'
+registry_endpoint = endpoint 'image-registry-bind'
 api_bind = endpoint 'image-api-bind'
 
 # Possible combinations of options here
