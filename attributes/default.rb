@@ -29,15 +29,9 @@ default['openstack']['image']['custom_template_banner'] = '
 
 default['openstack']['image']['verbose'] = 'False'
 default['openstack']['image']['debug'] = 'False'
-# This is the name of the Chef role that will install the Keystone Service API
-default['openstack']['image']['identity_service_chef_role'] = 'os-identity'
 
 # Gets set in the Image Endpoint when registering with Keystone
 default['openstack']['image']['region'] = node['openstack']['region']
-
-# The name of the Chef role that knows about the message queue server
-# that Glance uses
-default['openstack']['image']['rabbit_server_chef_role'] = 'os-ops-messaging'
 
 default['openstack']['image']['service_tenant_name'] = 'service'
 default['openstack']['image']['service_user'] = 'glance'
